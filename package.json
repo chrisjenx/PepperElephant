@@ -1,0 +1,35 @@
+{
+  "name":         "pepperelephant",
+  "description":  "History of the Pepper Show",
+  "version":      "0.1.0",
+  "homepage":     "http://www.peppershow.org",
+  "author":       "Chris Jenkins <chris.mark.jenkins@gmail.com>",
+  "private":      true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chrisjenx/PepperElephant"
+  },
+  "contributors": [
+    "James ",
+    "Chris Jenkins",
+    "Matthew Minors",
+    "Ashton Snook"
+  ],
+  "dependencies": {
+    "socketstream": "0.3.x",
+    "ss-stylus": "0.1.x",
+    "ss-hogan": "0.1.x"
+  },
+  "devDependencies": {
+    "mocha":            "= 1.2.1",
+    "should":           "= 0.6.3"
+  },
+  "scripts": {
+    "start":"node app.js",
+    "test": "node_modules/.bin/mocha test"
+  },
+  "main":         "./index.js",
+  "engines": {
+    "node": "= 0.10.x"
+  }
+}

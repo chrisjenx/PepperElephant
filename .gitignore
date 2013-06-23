@@ -3,6 +3,7 @@
 
 
 # Node
+node_modules/
 lib-cov
 *.seed
 *.log
@@ -17,3 +18,6 @@ logs
 results
 
 npm-debug.log
+
+#IDEA
+.idea/
