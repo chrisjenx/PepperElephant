@@ -1,8 +1,8 @@
 PepperElephant
 ==============
+![The Pepper Elephant](https://raw.github.com/chrisjenx/PepperElephant/master/design/pepper_elephant.png)
 
 Pepper Elephant is the collection of 25 years worth of shows history, songs, cast, crew, music and memories.
-
 
 ## About
 
