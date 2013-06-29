@@ -6,32 +6,26 @@ html(lang="en")
     //SocketStream auto imports
     != SocketStream
   body
-    //NavBar content
-    div#navbar.navbar.navbar-fixed-top
+    div#wrap
+      //NavBar
+      include includes/head-navbar
+      // Page Content
+      div#content.container
+        a(href="https://github.com/socketstream/socketstream")
+          img(src="/images/pepper_elephant.png",alt="Pepper Elephant Logo")
+
+        div.row
+          div.span6
+          div.span6
+
+        div.row
+          div.span3
+          div.span9
+            pre
+              code This will be awesome! and dont you forget it!
+      div#push
+
+    div#footer.navbar.navbar-fixed-bottom
       div.navbar-inner
-        a.brand(href="#") Pepper Elephant
-        ul.nav
-          li
-            a(href="#home") Home
-          li
-            a(href="#shows") Shows
-        form.navbar-search.pull-right
-          input.search-query(type="text",placeholder="Search")
+        p.navbar-text.text-center Crafted by Chris Jenx, James Butler, Aston Snook, Matthew Minors for the Pepper Foundation
 
-
-    div#content.container
-      a(href="https://github.com/socketstream/socketstream")
-        img(src="/images/pepper_elephant.png",alt="Pepper Elephant Logo")
-
-      div.row
-        div.span6
-        div.span6
-
-      div.row
-        div.span3
-        div.span9
-          pre
-            code This will be awesome! and dont you forget it!
-
-  div#footer
-    div.container

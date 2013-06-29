@@ -1,0 +1,16 @@
+//NavBar content
+div#navbar.navbar.navbar-fixed-top
+  div.navbar-inner
+    a.brand(href="#") Pepper Elephant
+    ul.nav
+      li
+        a(href="#home") Home
+      li.dropdown
+        a.dropdown-toggle(data-toggle="dropdown",data-target="#")
+          | Shows
+          b.caret
+        ul.dropdown-menu
+          li
+            a(href="#show1") Show 1
+    form#nav-search.navbar-search.pull-right
+      input.search-query(type="text",placeholder="Search")

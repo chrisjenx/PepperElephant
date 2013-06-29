@@ -17,8 +17,8 @@ ss.server.on('ready', function(){
   jQuery(function(){
     
     // Load app
+    require('/bootstrap-init');
     require('/app');
-
   });
 
 });
