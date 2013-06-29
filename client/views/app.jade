@@ -2,16 +2,36 @@
 html(lang="en")
   head
     meta(charset="utf-8")
-    title Welcome to Pepper Elephant
+    title Pepper Elephant
+    //SocketStream auto imports
     != SocketStream
   body
-    div#content
-      // Logo and link
+    //NavBar content
+    div#navbar.navbar.navbar-fixed-top
+      div.navbar-inner
+        a.brand(href="#") Pepper Elephant
+        ul.nav
+          li
+            a(href="#home") Home
+          li
+            a(href="#shows") Shows
+        form.navbar-search.pull-right
+          input.search-query(type="text",placeholder="Search")
+
+
+    div#content.container
       a(href="https://github.com/socketstream/socketstream")
-        img(
-          src="/images/pepper_elephant.png",alt="Pepper Elephant Logo")
-      h1 Welcome to Pepper Elephants
-      pre
-        code This will be awesome! and dont you forget it!
+        img(src="/images/pepper_elephant.png",alt="Pepper Elephant Logo")
 
+      div.row
+        div.span6
+        div.span6
 
+      div.row
+        div.span3
+        div.span9
+          pre
+            code This will be awesome! and dont you forget it!
+
+  div#footer
+    div.container

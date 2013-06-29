@@ -6,8 +6,8 @@ var http = require('http'),
 // Define a single-page client called 'main'
 ss.client.define('main', {
   view: 'app.jade',
-  css:  ['libs/reset.css', 'common', 'app.styl'],
-  code: ['libs/jquery.min.js', 'common', 'app'],
+  css:  ['libs', 'bootstrap', 'common'],
+  code: ['libs', 'bootstrap', 'common', 'app'],
   tmpl: '*'
 });
 
@@ -19,6 +19,7 @@ ss.http.route('/', function(req, res){
 ss.ws.transport.use(require('ss-sockjs'));
 
 // Code Formatters
+ss.client.formatters.add(require('ss-less'))
 ss.client.formatters.add(require('ss-stylus'));
 ss.client.formatters.add(require('ss-jade'));
 
