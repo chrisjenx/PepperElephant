@@ -16,6 +16,7 @@
     "Ashton Snook"
   ],
   "dependencies": {
+    "underscore":"1.4.x",
     "colors": "0.6.x",
     "nodemon": "0.7.x",
     "socketstream": "0.3.x",
