@@ -5,7 +5,8 @@ var _ = require("underscore");
  * @type {{delimiter: string}}
  */
 exports.input_config = {
-  delimiter: ','
+  delimiter: ',',
+  columns:['SHOW','YEAR','BAND_MEMBERS','BAND','INSTRUMENTS','SONGS','CREW','MAIN_COMMITTEE','COMMITTEE_MEMBERS','HOSPICE_HELPERS']
 };
 
 /**
@@ -16,7 +17,7 @@ exports.isRowBlank = function (row) {
   if (_.isUndefined(row)) return true;
   if (_.isEmpty(row)) return true;
   //If we got this far and not array then there is data
-  if (!_.isArray(row)) return false;
+  if (!_.isArray(row) && !_.isObject(row)) return false;
 
   var hasData = false;
   for (var i in row) {

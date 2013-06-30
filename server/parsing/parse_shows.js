@@ -21,6 +21,18 @@ sp.parseShow = function (inputFilePath, outPutFilePath) {
   startParsing();
 }
 
+/**
+ *
+ * @type {Array}
+ * Show object
+ * {
+ *  name:"",
+ *  year:"",
+ *  songs:[]
+ * }
+ */
+var showsJSONArr = [];
+var _tempShowObject;
 
 // Private
 function startParsing() {
@@ -33,16 +45,16 @@ function startParsing() {
       .on('error', onError);
 }
 
-function transform(row) {
+function transform(row, index) {
+  if(index <= 2) return null;
   if(u.isRowBlank(row)){
     return null;
   }
-//  row.unshift(row.pop());
-  return JSON.stringify(row);
+  return row;
 }
 
 function onRecord(row, index) {
-  console.log('#' + index + ' ' + row);
+  console.log('#' + index + ' ' + JSON.stringify(row));
 //  console.log("Row[%d] %j".cyan, index, row);
 }
 
