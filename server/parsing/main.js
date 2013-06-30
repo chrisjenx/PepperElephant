@@ -4,7 +4,7 @@ var csv = require('csv');
 
 var parse = exports;
 
-var rawDataDir;
+var dataDir, dataDirRaw, dataDirJson;
 
 //--
 // Private methods
@@ -14,15 +14,22 @@ var rawDataDir;
  * Setup the module
  * @param socketStream the socketStreaming module
  */
-function init(socketStream){
+function init(socketStream) {
   parse.ss = socketStream;
   initDirs();
 }
 
-function initDirs(){
-  rawDataDir = path.resolve("docs/data/raw");
-//  rawDataDir = __dirname + "docs/data/raw";
-  console.log("RawDataFolder %s".grey, rawDataDir);
+/**
+ * Find all the absolute paths for the data
+ */
+function initDirs() {
+  dataDir = path.resolve("docs/data");
+  dataDirRaw = path.resolve(dataDir,"raw");
+  dataDirJson = path.resolve(dataDir,"json");
+
+  console.log("DataFolder %s".grey, dataDir);
+  console.log("RawDataFolder %s".grey, dataDirRaw);
+  console.log("JsonDataFolder %s".grey, dataDirJson);
 }
 
 /**
