@@ -41,16 +41,16 @@ function startParsing() {
 //      .to.path(OUTPUT)
       .transform(transform)
       .on('record', onRecord)
-      .on('close', onClose)
+      .on('end', onEnd)
       .on('error', onError);
 }
 
 function transform(row, index) {
-  if(index <= 2) return null;
-  if(u.isRowBlank(row)){
+  if (index <= 2) return null;
+  if (u.isRowBlank(row)) {
     return null;
   }
-  return row;
+  return u.trimNulls(row);
 }
 
 function onRecord(row, index) {
@@ -58,7 +58,7 @@ function onRecord(row, index) {
 //  console.log("Row[%d] %j".cyan, index, row);
 }
 
-function onClose(count) {
+function onEnd(count) {
   console.log('Number of lines: %d'.red, count);
 }
 

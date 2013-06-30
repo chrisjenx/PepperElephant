@@ -6,7 +6,7 @@ var _ = require("underscore");
  */
 exports.input_config = {
   delimiter: ',',
-  columns:['SHOW','YEAR','BAND_MEMBERS','BAND','INSTRUMENTS','SONGS','CREW','MAIN_COMMITTEE','COMMITTEE_MEMBERS','HOSPICE_HELPERS']
+  columns: ['SHOW', 'YEAR', 'BAND_MEMBERS', 'BAND', 'INSTRUMENTS', 'SONGS', 'CREW', 'MAIN_COMMITTEE', 'COMMITTEE_MEMBERS', 'HOSPICE_HELPERS']
 };
 
 /**
@@ -26,4 +26,21 @@ exports.isRowBlank = function (row) {
     }
   }
   return !hasData;
+}
+
+/**
+ * Trims null values from an object
+ * @param data
+ * @returns {*}
+ */
+exports.trimNulls = function (data) {
+  var y;
+  for (var x in data) {
+    y = data[x];
+    if (y === "null" || y === null || y === "" || typeof y === "undefined" || (y instanceof Object && Object.keys(y).length == 0)) {
+      delete data[x];
+    }
+    if (y instanceof Object) y = trim_nulls(y);
+  }
+  return data;
 }
