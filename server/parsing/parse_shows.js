@@ -1,7 +1,8 @@
 //Consts
 var K_NAME = "name",
     K_YEAR = "year",
-    K_SONGS = "songs";
+    K_SONGS = "songs",
+    K_BANDS = "bands";
 
 // Imports
 var colors = require('colors');
@@ -30,13 +31,39 @@ sp.parseShow = function (inputFilePath, outPutFilePath) {
  *
  * @type {Array}
  * Show object
- * {
+ * "name" = {
  *  name:"",
  *  year:"",
- *  songs:[]
+ *  bands:["",""]
+ *  songs:[{
+ *    name:"",
+ *    bands:["",""]
+ *  }],
+ *  people:{}
  * }
  */
 var showsJSONMap = {};
+/**
+ *
+ * @type {Array}
+ * Person Object
+ * "name":{
+ *  name:"",
+ *  bands:[],
+ *  instruments:[],
+ *  songs:[{
+ *    name:"",
+ *    bands:["",""]
+ *  }],
+ *  crew:"position"
+ *  main_committee:true|false,
+ *  committee_member:true|false,
+ *  hospice_helper:true|false,
+ * }
+ */
+var peopleJSONMap = [];
+
+var s;
 
 // Private
 function startParsing() {
@@ -80,7 +107,8 @@ function parseRow(row) {
   var showObject = getCurrentShowObject(showsJSONMap, row);
   populateShowName(showObject, row);
   populateShowYear(showObject, row);
-  populateShowSongs(showObject, row)
+  populateShowBands(showObject, row);
+  populateShowSongs(showObject, row);
   showsJSONMap[showObject.name] = showObject
 }
 
@@ -122,15 +150,19 @@ function populateShowYear(showObject, row) {
  * @param row
  */
 function populateShowSongs(showObject, row) {
-  var songArray = showObject[K_SONGS];
-  if (songArray === undefined)
-    songArray = [];
-  var songName = row.SONGS;
-  if (songName !== undefined) {
-    songName = songName.split(" = ");
-    songArray.push(songName[0]);
-    songArray = u.cleanUpArray(songArray);
-  }
-  showObject[K_SONGS] = songArray;
+  showObject[K_SONGS] =
+      u.addToArrayIfValid(showObject[K_SONGS], row.SONGS);
 }
+
+/**
+ * Add bands to the show object
+ * @param showObject
+ * @param row
+ */
+function populateShowBands(showObject, row) {
+  showObject[K_BANDS] =
+      u.addToArrayIfValid(showObject[K_BANDS], row.BAND);
+}
+
+
 
