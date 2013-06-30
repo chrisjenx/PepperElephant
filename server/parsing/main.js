@@ -1,7 +1,10 @@
-var csv = require('csv'),
-    fs = require('fs');
+var fs = require('fs');
+var path = require("path");
+var csv = require('csv');
 
 var parse = exports;
+
+var rawDataDir;
 
 //--
 // Private methods
@@ -9,18 +12,26 @@ var parse = exports;
 
 /**
  * Setup the module
+ * @param socketStream the socketStreaming module
  */
-function init(){
+function init(socketStream){
+  parse.ss = socketStream;
+  initDirs();
 }
 
+function initDirs(){
+  rawDataDir = path.resolve("docs/data/raw");
+//  rawDataDir = __dirname + "docs/data/raw";
+  console.log("RawDataFolder %s".grey, rawDataDir);
+}
 
 /**
  * Start parsing the csv
  */
 function startParsing() {
-  console.log("Parser Started".cyan);
-}
 
+  console.log("Parser Started\n---".green);
+}
 //--
 // Public Methods
 
@@ -31,6 +42,7 @@ function startParsing() {
  * @param ss SocketStream
  */
 parse.start = function (ss) {
-  parse.ss = ss;
+  console.log("---\nParser Starting".blue);
+  init(ss);
   startParsing();
 }
