@@ -44,3 +44,14 @@ exports.trimNulls = function (data) {
   }
   return data;
 }
+
+/**
+ * Returns a cleaned up array, no duplicates or nulls
+ * @param array
+ * @returns {*}
+ */
+exports.cleanUpArray =function(array){
+  array = _.compact(array);
+  array = _.uniq(array);
+  return array;
+}
