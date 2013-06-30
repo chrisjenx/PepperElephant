@@ -2,9 +2,16 @@
 var K_NAME = "name",
     K_YEAR = "year",
     K_SONGS = "songs",
-    K_BANDS = "bands";
+    K_BANDS = "bands",
+    K_BAND_MEMBERS = "band_members",
+    K_CREW = "crew",
+    K_MAIN_COM = "main_committee",
+    K_COM_MEM = "committee_members",
+    K_HOSP_HELP = "hospice_helpers",
+    K_INSTR = "instruments";
 
 // Imports
+var _ = require('underscore');
 var colors = require('colors');
 var fs = require('fs');
 var csv = require('csv');
@@ -39,26 +46,19 @@ sp.parseShow = function (inputFilePath, outPutFilePath) {
  *    name:"",
  *    bands:["",""]
  *  }],
- *  people:{}
+ *  people:[{}]
  * }
  */
 var showsJSONMap = {};
 /**
  *
  * @type {Array}
- * Person Object
- * "name":{
+ * Band Members Object
+ * {
  *  name:"",
  *  bands:[],
  *  instruments:[],
- *  songs:[{
- *    name:"",
- *    bands:["",""]
- *  }],
- *  crew:"position"
- *  main_committee:true|false,
- *  committee_member:true|false,
- *  hospice_helper:true|false,
+ *  songs:[] //Gets post processed
  * }
  */
 var peopleJSONMap = [];
@@ -91,7 +91,8 @@ function onRecord(row, index) {
 }
 
 function onEnd(count) {
-  console.log("Shows Map: \n%s", JSON.stringify(showsJSONMap,null,4));
+  postProcessShows(showsJSONMap);
+  console.log("Shows Map: \n%s", JSON.stringify(showsJSONMap, null, 4));
   console.log('Number of lines: %d'.red, count);
 }
 
@@ -109,6 +110,11 @@ function parseRow(row) {
   populateShowYear(showObject, row);
   populateShowBands(showObject, row);
   populateShowSongs(showObject, row);
+  populateShowCrew(showObject, row);
+  populateShowMainCommittee(showObject, row);
+  populateShowCommitteeMembers(showObject, row);
+  populateShowHospiceMembers(showObject, row);
+  populateBandMember(showObject, row);
   showsJSONMap[showObject.name] = showObject
 }
 
@@ -146,12 +152,19 @@ function populateShowYear(showObject, row) {
 
 /**
  * Appends songs to the show object
+ *
+ * Generates a show object like:
+ * {
+ *    name:"",
+ *    bands:["",""]
+ * }
+ *
  * @param showObject
  * @param row
  */
 function populateShowSongs(showObject, row) {
   showObject[K_SONGS] =
-      u.addToArrayIfValid(showObject[K_SONGS], row.SONGS);
+      u.addToArrayIfValid(showObject[K_SONGS], row.SONGS, "name", "band");
 }
 
 /**
@@ -164,5 +177,97 @@ function populateShowBands(showObject, row) {
       u.addToArrayIfValid(showObject[K_BANDS], row.BAND);
 }
 
+function populateBandMember(showObject, row) {
+  var name = row.BAND_MEMBERS;
+  if (name === undefined) return;
 
+  var memberObj = {};
+  memberObj['name'] = name;
 
+  var bands = row.BAND;
+  if (bands !== undefined) {
+    bands = bands.trim().split('/');
+    memberObj['bands'] = bands;
+  }
+
+  var inst = row.INSTRUMENTS;
+  if (inst !== undefined) {
+    inst = inst.trim().split('/');
+    memberObj['instruments'] = inst;
+  }
+  showObject[K_BAND_MEMBERS] =
+      u.addToArrayIfValid(showObject[K_BAND_MEMBERS], memberObj);
+}
+
+/**
+ * Populate crew and position to show object
+ * @param showObject
+ * @param row
+ */
+function populateShowCrew(showObject, row) {
+  showObject[K_CREW] =
+      u.addToArrayIfValid(showObject[K_CREW], row.CREW, "name", "position");
+}
+
+function populateShowMainCommittee(showObject, row) {
+  showObject[K_MAIN_COM] =
+      u.addToArrayIfValid(showObject[K_MAIN_COM], row.MAIN_COMMITTEE);
+}
+function populateShowCommitteeMembers(showObject, row) {
+  showObject[K_COM_MEM] =
+      u.addToArrayIfValid(showObject[K_COM_MEM], row.COMMITTEE_MEMBERS);
+}
+function populateShowHospiceMembers(showObject, row) {
+  showObject[K_HOSP_HELP] =
+      u.addToArrayIfValid(showObject[K_HOSP_HELP], row.HOSPICE_HELPERS);
+}
+
+/**
+ * Will match more data to make it easier when showing to the user.
+ * @param showMap
+ */
+function postProcessShows(showMap) {
+  console.log("PostProcess Shows".red);
+  for (k in showMap) {
+    var songArr = showMap[k][K_SONGS];
+    var bandMembers = showMap[k][K_BAND_MEMBERS];
+    addSongsToBandMembers(songArr, bandMembers);
+  }
+}
+
+/**
+ * Try and add songs to band members
+ * @param songArr - [{ * name:"",band:[] }]
+ * @param bandMemberArr
+ * [{
+ *  name:"",
+ *  bands:[],
+ *  instruments:[],
+ *  songs:[] //Gets post processed
+ * }]
+ *
+ */
+function addSongsToBandMembers(songArr, bandMemberArr) {
+  for (var i in bandMemberArr) {
+    var name = bandMemberArr[i]['name'];
+    var bands = bandMemberArr[i]['bands'];
+    if (bands === undefined) continue;
+//    console.log("%j,%j", name, bands);
+
+    for (var i2 in songArr) {
+      var songName = songArr[i2]['name'];
+      var songBand = songArr[i2]["band"];
+      if (songBand === undefined) continue;
+//      console.log("%j,%j", songName, songBand);
+      for (var i3 in songBand) {
+        var songBandName = songBand[i3];
+        if(_.contains(bands,songBandName) || name == songBandName) {
+          var bandMemberSongs = bandMemberArr[i]["songs"];
+          if(bandMemberSongs === undefined) bandMemberSongs = [];
+          bandMemberSongs.push(songName);
+          bandMemberArr[i]["songs"] = bandMemberSongs;
+        }
+      }
+    }
+  }
+}

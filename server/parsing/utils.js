@@ -65,13 +65,50 @@ u.cleanUpArray = function (array) {
  * @returns {*}
  */
 u.addToArrayIfValid = function (inArray, value) {
+  return u.addToArrayIfValid(inArray, value, undefined);
+}
+
+/**
+ * Add to array and clean up
+ *
+ * @param inArray
+ * @param value
+ * @param val1Key (optional) the name of the first key if you want to add to the array as key/val
+ * @returns {*}
+ */
+u.addToArrayIfValid = function (inArray, value, val1Key) {
+  return u.addToArrayIfValid(inArray, value, val1Key, undefined);
+}
+
+/**
+ * Add to array and clean up
+ *
+ * @param inArray
+ * @param value
+ * @param val1Key (optional) the name of the first key if you want to add to the array as key/val
+ * @param val2Key (optional) the name of the second key if you want to add to the array as key/val
+ * @returns {*}
+ */
+u.addToArrayIfValid = function (inArray, value, val1Key, val2Key) {
   var outArray = inArray;
   if (outArray === undefined)
     outArray = [];
   var varName = value;
-  if (varName !== undefined) {
+  if (varName !== undefined && _.isString(varName)) {
     varName = varName.split(" = ");
-    outArray.push(varName[0].trim());
+    var varObject = varName[0].trim();
+    if (val1Key !== undefined) {
+      varObject = {};
+      varObject[val1Key] = varName[0].trim();
+    }
+    if (varName.length > 1 && val2Key !== undefined) {
+      varObject[val2Key] = varName[1].trim().split("/");
+    }
+    outArray.push(varObject);
+    outArray = u.cleanUpArray(outArray);
+  }
+  if (_.isObject(value)) {
+    outArray.push(value);
     outArray = u.cleanUpArray(outArray);
   }
   return outArray;
