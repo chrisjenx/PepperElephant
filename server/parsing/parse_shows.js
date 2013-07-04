@@ -11,7 +11,7 @@ var K_NAME = "name",
     K_INSTR = "instruments";
 
 // Imports
-var _ = require('underscore');
+var _ = require('lodash');
 var colors = require('colors');
 var fs = require('fs');
 var csv = require('csv');
