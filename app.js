@@ -17,7 +17,7 @@ ss.http.route('/', function(req, res){
   res.serveClient('main');
 });
 
-ss.ws.transport.use(require('ss-sockjs'));
+//ss.ws.transport.use(require('ss-sockjs'));
 
 // Code Formatters
 ss.client.formatters.add(require('ss-less'))
