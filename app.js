@@ -7,13 +7,13 @@ var http = require('http'),
 // Define a single-page client called 'main'
 ss.client.define('main', {
   view: 'app.jade',
-  css:  ['libs', 'bootstrap', 'common'],
+  css: ['libs', 'bootstrap', 'common'],
   code: ['libs', 'bootstrap', 'common', 'app'],
   tmpl: '*'
 });
 
 // Serve this client on the root URL
-ss.http.route('/', function(req, res){
+ss.http.route('/', function (req, res) {
   res.serveClient('main');
 });
 
@@ -35,10 +35,12 @@ var server = http.Server(ss.http.middleware);
 server.listen(3000);
 
 //Start the parser
-parser.start(ss, function(showMap){
+parser.start(ss, function (showMap) {
   // Put the data somewhere RPC can get it
-  ss.data = {};
-  ss.data['shows'] = showMap;
+  var data = {
+    shows: showMap
+  };
+  ss.api.add("data", data);
 });
 
 // Start SocketStream
