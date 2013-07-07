@@ -2,11 +2,20 @@
 @import "dimensions";
 
 .blue_border(@radius: @default_corner){
+  .border(@radius);
+  border-color: @medium_blue;
+}
+
+.light_border(@radius: @default_corner){
+  .border(@radius);
+  border-color: @light_blue;
+}
+
+.border(@radius: @default_corner){
   border-radius: @radius;
   -moz-border-radius: @radius;
   -webkit-border-radius: @radius;
 
-  border-style: solid;
   border-width: @default_border;
-  border-color: @medium_blue;
+  border-style: solid;
 }
