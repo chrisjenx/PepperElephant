@@ -33,7 +33,8 @@ function showsToNameAndLinkArray(showMap) {
   _.forEach(showMap, function (value, key) {
     showNaL = {
       name: key,
-      link: value['link']
+      link: value['link'],
+      year: value['year']
     };
     showArr.push(showNaL);
   });

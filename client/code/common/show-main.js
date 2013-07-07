@@ -27,12 +27,8 @@ exports.appendShows = function (showsArray) {
  * @param showObject
  */
 exports.appendShow = function (showObject) {
-  var render = {
-    name: showObject.name,
-    link: showObject.link
-  }
-  var htmlName = ss.tmpl['show-name'].render(render);
-  var htmlNameLi = ss.tmpl['show-name-li'].render(render);
+  var htmlName = ss.tmpl['show-name'].render(showObject);
+  var htmlNameLi = ss.tmpl['show-name-li'].render(showObject);
   $(htmlName).appendTo('#show_list').slideDown();
   $(htmlNameLi).appendTo('#show_list_nav');
 }
