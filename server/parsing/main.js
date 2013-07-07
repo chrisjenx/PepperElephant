@@ -39,7 +39,8 @@ function initDirs() {
  */
 function startParsing() {
   console.log("Parsing ShowData".cyan);
-  require("./parse_shows").parseShow(DATA_DIR_RAW + "/peppershows.csv", DATA_DIR_JSON + "/peppershows.json");
+  var showParser = require("./parse_shows");
+  showParser.parseShow(DATA_DIR_RAW + "/peppershows.csv", DATA_DIR_JSON + "/peppershows.json");
 
   console.log("Parser Started\n---".green);
 }

@@ -11,7 +11,6 @@ exports.loadHome = function () {
  * Loads the about screen
  */
 exports.loadAbout = function () {
-
 }
 
 /**
