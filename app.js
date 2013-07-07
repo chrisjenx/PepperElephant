@@ -35,7 +35,11 @@ var server = http.Server(ss.http.middleware);
 server.listen(3000);
 
 //Start the parser
-parser.start(ss);
+parser.start(ss, function(showMap){
+  // Put the data somewhere RPC can get it
+  ss.data = {};
+  ss.data['shows'] = showMap;
+});
 
 // Start SocketStream
 ss.start(server);

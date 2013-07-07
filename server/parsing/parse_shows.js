@@ -23,20 +23,24 @@ var u = require('./utils');
  * @type {*}
  */
 var sp = exports;
-var INPUT, OUTPUT;
+// InputFile, OutputFile, Completed Callback
+var INPUT, OUTPUT, COMPLETE_CB;
 // Public
 /**
  * Parse the show file
  * @param inputFilePath the absolute file path to the csv
  * @param outPutFilePath the absolute output file path to the json
  */
-sp.parseShow = function (inputFilePath, outPutFilePath) {
+sp.parseShow = function (inputFilePath, outPutFilePath, completedCB) {
   INPUT = inputFilePath;
   OUTPUT = outPutFilePath;
+  COMPLETE_CB = completedCB;
   if (INPUT === undefined || OUTPUT === undefined) {
     throw new Error('Input and Output file paths must be defined');
   }
   startParsing();
+
+
 }
 
 /**
@@ -139,15 +143,21 @@ function transform(row, index) {
  * @param index
  */
 function onRecord(row, index) {
-//  console.log('#' + index + ' ' + JSON.stringify(row));
-//  console.log("Row[%d] %j".cyan, index, row);
   parseRow(row);
 }
 
+/**
+ * Finished parsing the show data
+ * @param count Rows we have parses
+ */
 function onEnd(count) {
   postProcessShows(showsJSONMap);
   console.log("Shows Map: \n%s", JSON.stringify(showsJSONMap, null, 4));
   console.log('Number of lines: %d'.red, count);
+  //send the data back if the CB is set
+  if (_.isFunction(COMPLETE_CB)) {
+    COMPLETE_CB(showsJSONMap);
+  }
 }
 
 function onError(error) {
@@ -179,7 +189,7 @@ function parseRow(row) {
  * @returns {*}
  */
 function getCurrentShowObject(showsMap, row) {
-  var currShow = showsMap[row.SHOW];
+  var currShow = showsMap[row['SHOW']];
   if (currShow === undefined || currShow == null) {
     return {};
   }
