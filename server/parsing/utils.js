@@ -113,3 +113,16 @@ u.addToArrayIfValid = function (inArray, value, val1Key, val2Key) {
   }
   return outArray;
 }
+
+
+/**
+ * Removes white space and lower cases some text to make it a useful link
+ *
+ * @param name
+ * @returns {string}
+ */
+u.createLinkFromName = function (name) {
+  if (_.isEmpty(name))
+    return "";
+  return name.toLowerCase();
+}

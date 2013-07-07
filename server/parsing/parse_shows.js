@@ -1,5 +1,6 @@
 //Consts
 var K_NAME = "name",
+    K_LINK = "link",
     K_YEAR = "year",
     K_SONGS = "songs",
     K_BANDS = "bands",
@@ -40,7 +41,7 @@ sp.parseShow = function (inputFilePath, outPutFilePath) {
 
 /**
  * Returns the show map that has been parsed in, this can be quite large!
- * 
+ *
  * @returns {*}
  * Show object:
  * <code>
@@ -60,6 +61,7 @@ sp.parseShow = function (inputFilePath, outPutFilePath) {
  * </code>
  */
 sp.getShows = function () {
+  //If its not an object make sure we return one
   if (!_.isObject(showsJSONMap)) {
     return {};
   }
@@ -191,7 +193,8 @@ function getCurrentShowObject(showsMap, row) {
  */
 function populateShowName(showObject, row) {
   showObject[K_NAME] = row['SHOW'];
-//  showObject[K_LINK] = row
+  //Create link
+  showObject[K_LINK] = u.createLinkFromName(showObject[K_NAME]);
 }
 
 /**
