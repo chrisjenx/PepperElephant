@@ -39,8 +39,36 @@ sp.parseShow = function (inputFilePath, outPutFilePath) {
 }
 
 /**
+ * Returns the show map that has been parsed in, this can be quite large!
+ * 
+ * @returns {*}
+ * Show object:
+ * <code>
+ *   {
+ *    "name" = {
+ *      name:"",
+ *      link:"",
+ *      year:"",
+ *      bands:["",""]
+ *      songs:[{
+ *        name:"",
+ *        bands:["",""]
+ *      }],
+ *      people:[{}]
+ *    }
+ *  }
+ * </code>
+ */
+sp.getShows = function () {
+  if (!_.isObject(showsJSONMap)) {
+    return {};
+  }
+  return showsJSONMap;
+}
+
+/**
  *
- * @type {Array}
+ * @type {Object}
  * Show object
  * "name" = {
  *  name:"",
