@@ -5,6 +5,8 @@ var content = require("/content");
  * @param showObject
  */
 exports.loadShow = function(showObject){
+  console.log("Show Data");
+  console.log(showObject);
 }
 
 /**

@@ -1,5 +1,6 @@
 // Server-side Code
-var _ = require("lodash");
+var _ = require("lodash"),
+    u = require("../parsing/utils");
 
 // Define actions which can be called from the client using ss.rpc('demo.ACTIONNAME', param1, param2...)
 exports.actions = function (req, res, ss) {
@@ -14,8 +15,8 @@ exports.actions = function (req, res, ss) {
     },
     //Load the show data
     loadShow: function (link) {
-      console.log(link);
-      return res(true);
+      var show = findShowInMap(showData, link);
+      return res(show);
     }
   };
 }
@@ -39,4 +40,24 @@ function showsToNameAndLinkArray(showMap) {
     showArr.push(showNaL);
   });
   return showArr;
+}
+
+/**
+ * Based on the link passed in, will through back a show
+ *
+ * @param showMap
+ * @param link
+ */
+function findShowInMap(showMap, link) {
+  link = link.replace("#show_", "").toLowerCase();
+  var showNameLink;
+  var showObject = {};
+  _.forEach(showMap, function (show, name) {
+    showNameLink = u.createLinkFromName(name);
+    if (showNameLink === link) {
+      showObject = show;
+      return;
+    }
+  });
+  return showObject;
 }
