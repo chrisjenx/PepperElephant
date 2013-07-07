@@ -124,5 +124,15 @@ u.addToArrayIfValid = function (inArray, value, val1Key, val2Key) {
 u.createLinkFromName = function (name) {
   if (_.isEmpty(name))
     return "";
-  return name.toLowerCase();
+  return removeWhiteSpace(name.toLowerCase());
+}
+
+/**
+ * Remove whitespace from the text and replace with underscores "_"
+ *
+ * @param text
+ * @returns {*}
+ */
+function removeWhiteSpace(text) {
+  return text.replace(/\s+/g, '_');
 }
