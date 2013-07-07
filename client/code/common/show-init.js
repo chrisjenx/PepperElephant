@@ -1,19 +1,23 @@
 console.log("Show Init");
 
-loadShows();
-
-
-function loadShows(){
-  $('#sidebar').show();
-  ss.event.on('showLoaded', appendShowName);
-  ss.rpc('app.getShows');
-}
+// Get the shows from the server
+ss.rpc('show.getShows', appendShows);
 
 /**
  * Show name for the object
- * @param showObject
+ * @param showsArray
  */
-function appendShowName(showObject){
+function appendShows(showsArray) {
+  if (_.isArray(showsArray)) {
+    appendShow(showsArray[0]);
+  }
+  if (_.isObject(showsArray)) {
+    appendShow(showsArray);
+  }
+  $('#sidebar').show();
+}
+
+function appendShow(showObject) {
   var render = {
     name: showObject.name,
     link: showObject.link

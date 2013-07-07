@@ -4,26 +4,26 @@
 exports.actions = function(req, res, ss) {
 
   // Example of pre-loading sessions into req.session using internal middleware
-  req.use('session');
+//  req.use('session');
 
   return {
 
-    getShows: function(){
-      console.log("GetShows");
-      ss.publish.all("showLoaded", {
-        name:"Remote Show",
-        link:"remote_show"
-      });
-    }
-
-//    sendMessage: function(message) {
-//      if (message && message.length > 0) {         // Check for blank messages
-//        ss.publish.all('newMessage', message);     // Broadcast the message to everyone
-//        return res(true);                          // Confirm it was sent to the originating client
-//      } else {
-//        return res(false);
-//      }
+//    getShows: function(){
+//      console.log("GetShows");
+//      return res({
+//        name:"Remote Show",
+//        link:"remote_show"
+//      });
 //    }
+
+    sendMessage: function(message) {
+      if (message && message.length > 0) {         // Check for blank messages
+        ss.publish.all('newMessage', message);     // Broadcast the message to everyone
+        return res(true);                          // Confirm it was sent to the originating client
+      } else {
+        return res(false);
+      }
+    }
 
   };
 
