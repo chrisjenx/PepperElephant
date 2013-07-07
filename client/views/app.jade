@@ -10,19 +10,16 @@ html(lang="en")
       //NavBar
       include includes/head-navbar
       // Page Content
-      div#content.container
-        a(href="https://github.com/socketstream/socketstream")
-          img(src="/images/pepper_elephant.png",alt="Pepper Elephant Logo")
+      div#content.container-fluid
+        div.row-fluid
+          // SideBar
+          div#sidebar.span2
+            include includes/sidebar
+          //MainContent
+          div#main_content.span10
+            include includes/main-content
 
-        div.row
-          div.span6
-          div.span6
-
-        div.row
-          div.span3
-          div.span9
-            pre
-              code This will be awesome! and dont you forget it!
+      //Pushes the content down for the nav bar
       div#push
 
     include includes/footer

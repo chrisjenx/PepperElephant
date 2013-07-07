@@ -1,0 +1,37 @@
+@import "../bootstrap/variables.less";
+
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -70px;
+  // Containers inside of the wrap
+  #content {
+    padding-top: 60px;
+  }
+}
+
+@media screen and (max-width: @navbarCollapseWidth) {
+  #wrap {
+    #content {
+      padding-top: 0px;
+    }
+  }
+}
+
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+  height: 40px;
+}
+
+#footer {
+}
