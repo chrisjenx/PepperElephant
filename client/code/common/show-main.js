@@ -1,31 +1,33 @@
+var content = require("/content");
+
 /**
- * Add click listener to the the show links
+ * Load the show into the content screen.
+ * @param showObject
  */
-$(window).on('click', '.show_link', function () {
-  console.log("Show Click");
-});
+exports.loadShow = function(showObject){
+}
 
 /**
  * Show name for the object
  * @param showsArray
  */
-exports.appendShows = function(showsArray) {
+exports.appendShows = function (showsArray) {
   if (_.isArray(showsArray)) {
-    _.each(showsArray,function(value, index){
-      appendShow(value);
+    _.each(showsArray, function (value, index) {
+      exports.appendShow(value);
     });
   }
   if (_.isObject(showsArray)) {
-    appendShow(showsArray);
+    exports.appendShow(showsArray);
   }
-  $('#sidebar').fadeIn(200);
+  $('#sidebar').removeClass('hidden');
 }
 
 /**
- * Appending 
+ * Appending
  * @param showObject
  */
-exports.appendShow = function(showObject) {
+exports.appendShow = function (showObject) {
   var render = {
     name: showObject.name,
     link: showObject.link
