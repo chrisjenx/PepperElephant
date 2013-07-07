@@ -16,8 +16,7 @@ exports.appendShows = function (showsArray) {
     _.each(showsArray, function (value, index) {
       exports.appendShow(value);
     });
-  }
-  if (_.isObject(showsArray)) {
+  }else if (_.isObject(showsArray)) {
     exports.appendShow(showsArray);
   }
   $('#sidebar').removeClass('hidden');

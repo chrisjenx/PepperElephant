@@ -4,7 +4,6 @@ var _ = require("lodash");
 // Define actions which can be called from the client using ss.rpc('demo.ACTIONNAME', param1, param2...)
 exports.actions = function (req, res, ss) {
   //Get the show data
-  console.log(ss.data);
   var showData = ss.data['shows'];
   var showsNameAndLinksArray = showsToNameAndLinkArray(showData);
 
@@ -12,6 +11,11 @@ exports.actions = function (req, res, ss) {
     //Get the shows data
     getShows: function () {
       return res(showsNameAndLinksArray);
+    },
+    //Load the show data
+    loadShow: function (link) {
+      console.log(link);
+      return res(true);
     }
   };
 }
