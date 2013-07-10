@@ -1,5 +1,7 @@
 h3 {{name}} -
-  i {{year}}
+  em {{year}}
+//TODO add nav bar here
+h4#songs Songs
 table.table.table-condensed.table-hover.table-striped.table-bordered
   thead
     tr
@@ -11,10 +13,23 @@ table.table.table-condensed.table-hover.table-striped.table-bordered
       td(id="{{name}}") {{name}}
       td
           | {{#band}}
-          a(href="{{.}}") {{.}}
+          a.text-info(href="{{.}}") {{.}}
             br
           | {{/band}}
     | {{/songs}}
-
 a(href="#") Top
+h4#bands Bands
+table.table.table-condensed.table-hover.table-striped.table-bordered
+  thead
+    tr
+      th Band Name
+      th Members
+  tbody
+    | {{#bands}}
+    tr
+      td {{.}}
+      td
+        em.muted Coming soon
+    | {{/bands}}
+
 a(href="#") Top
