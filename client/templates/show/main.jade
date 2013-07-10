@@ -17,6 +17,7 @@ table.table.table-condensed.table-hover.table-striped.table-bordered
           | {{/band}}
     | {{/songs}}
 a(href="#") Top
+
 h4#bands Bands
 table.table.table-condensed.table-hover.table-striped.table-bordered
   thead
@@ -30,5 +31,34 @@ table.table.table-condensed.table-hover.table-striped.table-bordered
       td
         em.muted Coming soon
     | {{/bands}}
+
+a(href="#") Top
+
+h4#artists Artists
+table.table.table-condensed.table-hover.table-striped.table-bordered
+  thead
+    tr
+      th Name
+      th Instruments
+      th Songs
+      th Bands
+  tbody
+    | {{#band_members}}
+    tr
+      td(href="{{name}}") {{name}}
+      td
+        | {{#instruments}} {{.}}
+        br
+        | {{/instruments}}
+      td
+        | {{#songs}}
+        span(id="{{.}}")
+          | {{.}}
+          br
+        | {{/songs}}
+
+    | {{/band_members}}
+
+
 
 a(href="#") Top
