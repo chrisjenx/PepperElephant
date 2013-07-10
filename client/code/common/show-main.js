@@ -7,6 +7,7 @@ var content = require("/content");
 exports.loadShow = function(showObject){
   console.log("Show Data");
   console.log(showObject);
+  content.replaceContentWithObject('show-main', showObject);
 }
 
 /**

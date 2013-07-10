@@ -4,7 +4,7 @@
 exports.loadHome = function () {
 //  console.log(ss.tmpl);
   var html = ss.tmpl['content-welcome'].render();
-  replaceContent(html);
+  replaceContentWithHtml(html);
 }
 
 /**
@@ -28,11 +28,21 @@ function stopLoading() {
 }
 
 /**
+ *
+ * @param templateName
+ * @param object
+ */
+function replaceContentWithObject(templateName, object){
+  var html = ss.tmpl[templateName].render(object);
+  replaceContentWithHtml(html);
+}
+
+/**
  * Show content into the centre content page. Handles hiding and showing
  *
  * @param newHtml
  */
-function replaceContent(newHtml) {
+function replaceContentWithHtml(newHtml) {
   var content = findContent();
   hideContent(content);
   content.html(newHtml);
@@ -40,7 +50,8 @@ function replaceContent(newHtml) {
 }
 
 //Alias'
-exports.replaceContent = replaceContent;
+exports.replaceContentWithHtml = replaceContentWithHtml;
+exports.replaceContentWithObject = replaceContentWithObject;
 exports.startLoading = startLoading;
 exports.stopLoading = stopLoading;
 

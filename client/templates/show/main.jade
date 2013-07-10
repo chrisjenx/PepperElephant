@@ -1,0 +1,20 @@
+h3 {{name}} -
+  i {{year}}
+table.table.table-condensed.table-hover.table-striped.table-bordered
+  thead
+    tr
+      th Song Name
+      th Band
+  tbody()
+    | {{#songs}}
+    tr
+      td(id="{{name}}") {{name}}
+      td
+          | {{#band}}
+          a(href="{{.}}") {{.}}
+            br
+          | {{/band}}
+    | {{/songs}}
+
+a(href="#") Top
+a(href="#") Top
