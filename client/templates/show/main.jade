@@ -10,11 +10,10 @@ table.table.table-condensed.table-hover.table-striped.table-bordered
   tbody()
     | {{#songs}}
     tr
-      td(id="{{name}}") {{name}}
+      td(id='{{name}}') {{name}}
       td
           | {{#band}}
-          a.text-info(href="{{.}}") {{.}}
-            br
+          | <a href="\\#{{.}}">{{.}}<br /></a>
           | {{/band}}
     | {{/songs}}
 a(href="#") Top
@@ -27,7 +26,7 @@ table.table.table-condensed.table-hover.table-striped.table-bordered
   tbody
     | {{#bands}}
     tr
-      td {{.}}
+      td(id="{{.}}") {{.}}
       td
         em.muted Coming soon
     | {{/bands}}
