@@ -39,22 +39,24 @@ table.table.table-condensed.table-hover.table-striped.table-bordered
   thead
     tr
       th Name
-      th Instruments
-      th Songs
-      th Bands
+      th Instrument(s)
+      th Band(s)
+      th Song(s)
   tbody
     | {{#band_members}}
     tr
-      td(href="{{name}}") {{name}}
+      td(id="{{name}}") {{name}}
       td
         | {{#instruments}} {{.}}
         br
         | {{/instruments}}
       td
+        | {{#bands}}
+        | <a href="\\#{{.}}">{{.}}<br /></a>
+        | {{/bands}}
+      td
         | {{#songs}}
-        span(id="{{.}}")
-          | {{.}}
-          br
+        | <a href="\\#{{.}}">{{.}}<br /></a>
         | {{/songs}}
 
     | {{/band_members}}
