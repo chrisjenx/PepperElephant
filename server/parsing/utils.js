@@ -95,7 +95,7 @@ u.addToArrayIfValid = function (inArray, value, val1Key, val2Key) {
     outArray = [];
   var varName = value;
   if (varName !== undefined && _.isString(varName)) {
-    varName = varName.split(" = ");
+    varName = varName.split("=");
     var varObject = varName[0].trim();
     if (val1Key !== undefined) {
       varObject = {};

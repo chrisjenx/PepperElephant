@@ -255,12 +255,20 @@ function populateBandMember(showObject, row) {
     bands = bands.trim().split('/');
     memberObj['bands'] = bands;
   }
+  else{
+    memberObj['bands'] = [];
+  }
 
   var inst = row['INSTRUMENTS'];
   if (inst !== undefined) {
     inst = inst.trim().split('/');
     memberObj['instruments'] = inst;
+  }else{
+    memberObj['instruments'] = [];
   }
+  // Init songs
+  memberObj['songs'] = [];
+
   showObject[K_BAND_MEMBERS] =
       u.addToArrayIfValid(showObject[K_BAND_MEMBERS], memberObj);
 }
@@ -332,26 +340,24 @@ function postProcessShows(showMap) {
  * //TODO improve with lodash
  */
 function addSongsToBandMembers(songArr, bandMemberArr) {
-  for (var i in bandMemberArr) {
-    var name = bandMemberArr[i]['name'];
-    var bands = bandMemberArr[i]['bands'];
-    if (bands === undefined) continue;
-//    console.log("%j,%j", name, bands);
+  _.forEach(bandMemberArr, function (bandMember, index) {
+    var bandMemberName = bandMember['name'];
+    var bandMemberBands = bandMember['bands'];
+    var bandMemberSongs = bandMember["songs"];
 
     for (var i2 in songArr) {
       var songName = songArr[i2]['name'];
       var songBand = songArr[i2]["band"];
       if (songBand === undefined) continue;
-//      console.log("%j,%j", songName, songBand);
+
       for (var i3 in songBand) {
         var songBandName = songBand[i3];
-        if (_.contains(bands, songBandName) || name == songBandName) {
-          var bandMemberSongs = bandMemberArr[i]["songs"];
-          if (bandMemberSongs === undefined) bandMemberSongs = [];
-          bandMemberSongs.push(songName);
-          bandMemberArr[i]["songs"] = bandMemberSongs;
+        if (_.contains(bandMemberBands, songBandName) ||
+            bandMemberName == songBandName) {
+          bandMemberSongs.push({name: songName});
+          bandMemberArr[index]['songs'] = bandMemberSongs;
         }
       }
     }
-  }
+  });
 }
