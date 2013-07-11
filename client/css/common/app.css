@@ -11,7 +11,7 @@ body {
   height: 100%;
   /* Negative indent footer by it's height */
 
-  margin: 0 auto -70px;
+  margin: 0 auto -40px;
 }
 #wrap #content {
   padding-top: 60px;
